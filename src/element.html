@@ -1,0 +1,23 @@
+<template id="x-foo-from-template">
+  <style>
+    :host {
+      margin-top: 4rem;
+    }
+
+    p { color: orange; }
+  </style>
+  <p>This is a custom element</p>
+</template>
+
+<script>
+  customElements.define('x-foo-from-template', class extends HTMLElement {
+    constructor() {
+      super(); // always call super() first in the ctor.
+
+      const doc = document.currentScript.ownerDocument;
+      const tmpl = doc.querySelector('#x-foo-from-template');
+      this._root = this.attachShadow({ mode: 'open' });
+      this._root.appendChild(tmpl.content.cloneNode(true));
+    }
+  });
+</script>
